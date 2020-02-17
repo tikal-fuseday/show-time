@@ -15,13 +15,14 @@ import {
 //   DebugInstructions,
 //   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import LoginScreen from './screens/LoginScreen';
+
+import {Router} from './routes';
 
 const App: () => React$Node = () => {
   return (
     <>
       <ApplicationProvider mapping={mapping} theme={lightTheme}>
-        <LoginScreen/>
+        <Router />
       </ApplicationProvider>
     </>
   );
