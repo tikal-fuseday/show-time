@@ -1,15 +1,15 @@
 import * as admin from 'firebase-admin';
-import * as serviceAccount from "./firebase_config.json";
+import serviceAccount from './firebase_config.json';
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(serviceAccount as any),
   databaseURL: "https://show-time-268509.firebaseio.com"
 });
 
 import { ApolloServer, ApolloError, ValidationError, gql } from 'apollo-server';
 
 interface User {
-  // id: string;
+  id: string;
   fname: string;
   lname: string;
   is_admin: boolean;
@@ -18,11 +18,17 @@ interface User {
 
 const typeDefs = gql`
   type User {
+    id: ID!
     fname: String!
     lname: String!
     is_admin: Boolean
     email: String!   
-  }`;
+  }
+
+  type Query {
+    user(id: ID!): User
+  }
+`;
 
 // interface User {
 //   id: string;
@@ -71,14 +77,14 @@ const resolvers = {
     //     .get();
     //   return tweets.docs.map(tweet => tweet.data()) as Tweet[];
     // },
-    async user(_: null, args: { email: string }) {
+    async user(_: null, args: { id: string }) {
       try {
         const userDoc = await admin
           .firestore()
-          .doc(`users/${args.email}`)
+          .doc(`users/${args.id}`)
           .get();
         const user = userDoc.data() as User | undefined;
-        return user || new ValidationError('User email not found');
+        return user || new ValidationError('User id not found');
       } catch (error) {
         throw new ApolloError(error);
       }

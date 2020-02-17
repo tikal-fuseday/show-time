@@ -1,7 +1,17 @@
 "use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const admin = require("firebase-admin");
-const firebase_config_json_1 = require("./firebase_config.json");
+const admin = __importStar(require("firebase-admin"));
+const firebase_config_json_1 = __importDefault(require("./firebase_config.json"));
 admin.initializeApp({
     credential: admin.credential.cert(firebase_config_json_1.default),
     databaseURL: "https://show-time-268509.firebaseio.com"
@@ -9,11 +19,17 @@ admin.initializeApp({
 const apollo_server_1 = require("apollo-server");
 const typeDefs = apollo_server_1.gql `
   type User {
+    id: ID!
     fname: String!
     lname: String!
     is_admin: Boolean
     email: String!   
-  }`;
+  }
+
+  type Query {
+    user(id: ID!): User
+  }
+`;
 // interface User {
 //   id: string;
 //   name: string;
@@ -64,10 +80,10 @@ const resolvers = {
             try {
                 const userDoc = await admin
                     .firestore()
-                    .doc(`users/${args.email}`)
+                    .doc(`users/${args.id}`)
                     .get();
                 const user = userDoc.data();
-                return user || new apollo_server_1.ValidationError('User email not found');
+                return user || new apollo_server_1.ValidationError('User id not found');
             }
             catch (error) {
                 throw new apollo_server_1.ApolloError(error);
