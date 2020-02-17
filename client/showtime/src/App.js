@@ -28,8 +28,9 @@ apolloClient
   .query({
     query: gql`
       {
-        rates(currency: "USD") {
-          currency
+        user(email: "hagair@tikalk.com") {
+          id
+          fname
         }
       }
     `,
