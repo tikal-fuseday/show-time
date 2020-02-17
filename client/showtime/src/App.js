@@ -6,14 +6,14 @@ import {
   View,
   StatusBar,
 } from 'react-native';
-import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
-import { mapping, light as lightTheme } from '@eva-design/eva';
+import {ApplicationProvider, Layout, Text} from '@ui-kitten/components';
+import {mapping, light as lightTheme} from '@eva-design/eva';
 import {
-//   Header,
-//   LearnMoreLinks,
+  //   Header,
+  //   LearnMoreLinks,
   Colors,
-//   DebugInstructions,
-//   ReloadInstructions,
+  //   DebugInstructions,
+  //   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
 import {Router} from './routes';
