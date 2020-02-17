@@ -1,15 +1,9 @@
 import { ApolloServer, ApolloError, ValidationError, gql } from 'apollo-server';
-import { userDefs } from './resources/User';
-import { userResolver as user} from './resolvers/User';
-
-const resolvers = {
-  Query: {
-    user,
-  }
-};
+import { typeDefs } from './resources/';
+import resolvers from './resolvers/';
 
 const server = new ApolloServer({
-  typeDefs: [ userDefs ],
+  typeDefs,
   resolvers,
 //   engine: {
 //     apiKey: "<APOLLO ENGINE API KEY HERE>"
