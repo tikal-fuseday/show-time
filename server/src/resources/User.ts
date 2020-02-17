@@ -23,3 +23,4 @@ export const userDefs = `
         user(email: String!): [User]
     }
 `;
+
