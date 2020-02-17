@@ -18,15 +18,15 @@ interface User {
 
 const typeDefs = gql`
   type User {
-    id: String!
-    fname: String!
-    lname: String!
+    id: String
+    fname: String
+    lname: String
     is_admin: Boolean
-    email: String!   
+    email: String   
   }
 
   type Query {
-    user(id: String!): User
+    user(email: String!): User
   }
 `;
 
@@ -77,14 +77,15 @@ const resolvers = {
     //     .get();
     //   return tweets.docs.map(tweet => tweet.data()) as Tweet[];
     // },
-    async user(_: null, args: { id: string }) {
+    async user(_: null, args: { email: string }) {
       try {
-        const userDoc = await admin
+        const queryRes = await admin
           .firestore()
-          .doc(`users/${args.id}`)
+          .collection('users')
+          .where('email', '==', args.email)
           .get();
-        const user = userDoc.data() as User | undefined;
-        return user || new ValidationError('User id not found');
+          if (queryRes.empty) return new ValidationError('User id not found');
+          return (queryRes.docs.map(user => user.data()) as User[])[0];
       } catch (error) {
         throw new ApolloError(error);
       }
