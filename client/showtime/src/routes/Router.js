@@ -11,6 +11,7 @@ import LoginScreen from '../screens/LoginScreen';
 import NewsScreen from '../screens/NewsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ScoreScreen from '../screens/ScoreScreen';
+import AdminScreen from '../screens/AdminScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -43,6 +44,13 @@ const Router = () => {
             tabBarLabel: 'Profile',
           }}
         />
+        {/*<Tab.Screen*/}
+        {/*  name={Routes.AdminScreen}*/}
+        {/*  component={AdminScreen}*/}
+        {/*  options={{*/}
+        {/*    tabBarLabel: 'Admin',*/}
+        {/*  }}*/}
+        {/*/>*/}
       </Tab.Navigator>
     </NavigationContainer>
   )
