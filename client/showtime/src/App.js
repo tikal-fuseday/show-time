@@ -15,16 +15,20 @@ import {
 //   DebugInstructions,
 //   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { Provider as StoreProvider } from 'react-redux';
+import { Router } from './routes';
+import {createStore} from './store';
 
-import {Router} from './routes';
+
+const store = createStore();
 
 const App: () => React$Node = () => {
   return (
-    <>
+    <StoreProvider store={store}>
       <ApplicationProvider mapping={mapping} theme={lightTheme}>
-        <Router />
+        <Router/>
       </ApplicationProvider>
-    </>
+    </StoreProvider>
   );
 };
 
