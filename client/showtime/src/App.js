@@ -6,24 +6,29 @@ import {
   View,
   StatusBar,
 } from 'react-native';
-import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
-import { mapping, light as lightTheme } from '@eva-design/eva';
+import {ApplicationProvider, Layout, Text} from '@ui-kitten/components';
+import {mapping, light as lightTheme} from '@eva-design/eva';
 import {
-//   Header,
-//   LearnMoreLinks,
+  //   Header,
+  //   LearnMoreLinks,
   Colors,
-//   DebugInstructions,
-//   ReloadInstructions,
+  //   DebugInstructions,
+  //   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import LoginScreen from './screens/LoginScreen';
+import { Provider as StoreProvider } from 'react-redux';
+import { Router } from './routes';
+import {createStore} from './store';
+
+
+const store = createStore();
 
 const App: () => React$Node = () => {
   return (
-    <>
+    <StoreProvider store={store}>
       <ApplicationProvider mapping={mapping} theme={lightTheme}>
-        <LoginScreen/>
+        <Router/>
       </ApplicationProvider>
-    </>
+    </StoreProvider>
   );
 };
 
