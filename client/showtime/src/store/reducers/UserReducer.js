@@ -1,10 +1,16 @@
 import ActionTypes from '../ActionTypes';
 
 const InitialState = {
-  profile: null,
+  profile: {
+    fullName: 'test one',
+    score: 100,
+    level: 2,
+    tags: [],
+    items: []
+  },
 };
 
-const PofileReducer = (state = InitialState, action) => {
+const UserReducer = (state = InitialState, action) => {
   switch (action.type) {
     case ActionTypes.SET_PROFILE:
       return { ...state, profile: action.profile };
@@ -13,5 +19,5 @@ const PofileReducer = (state = InitialState, action) => {
   }
 };
 
-export default PofileReducer;
+export default UserReducer;
 
