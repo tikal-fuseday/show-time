@@ -6,7 +6,7 @@ admin.initializeApp({
   databaseURL: "https://show-time-268509.firebaseio.com"
 });
 
-import { ApolloServer, ApolloError, ValidationError, gql } from 'apollo-server';
+import { ApolloServer, ApolloError, ValidationError, gql, introspectSchema } from 'apollo-server';
 
 interface User {
   id: string;
@@ -14,6 +14,22 @@ interface User {
   lname: string;
   is_admin: boolean;
   email: string;
+}
+
+interface ItemType {
+  id: string;
+  name: string
+}
+
+interface Item {
+  id: string;
+  title: string;
+  description: string;
+  type: ItemType;
+  likes: Array<string>;
+  created_at: Date;
+  created_by: string;
+  thumbnail: string; 
 }
 
 const typeDefs = gql`
@@ -25,49 +41,26 @@ const typeDefs = gql`
     email: String   
   }
 
+  type Item {
+    id: String;
+    title: String;
+    description: String;
+    type: ItemType;
+    likes: [User];
+    created_at: Date;
+    created_by: User;
+    thumbnail: String; 
+  }
+
+  type ItemType {
+    id: String;
+    name: String
+  }
+
   type Query {
     user(email: String!): User
   }
 `;
-
-// interface User {
-//   id: string;
-//   name: string;
-//   screenName: string;
-//   statusesCount: number;
-// }
-//
-// interface Tweet {
-//   id: string;
-//   likes: number;
-//   text: string;
-//   userId: string;
-// }
-//
-// const typeDefs = gql`
-//   # A Twitter User
-//   type User {
-//     id: ID!
-//     name: String!
-//     screenName: String!
-//     statusesCount: Int!
-//     tweets: [Tweets]!
-//   }
-//
-//   # A Tweet Object
-//   type Tweets {
-//     id: ID!
-//     text: String!
-//     userId: String!
-//     user: User!
-//     likes: Int!
-//   }
-//
-//   type Query {
-//     tweets: [Tweets]
-//     user(id: String!): User
-//   }
-// `;
 
 const resolvers = {
   Query: {
@@ -85,6 +78,19 @@ const resolvers = {
           .where('email', '==', args.email)
           .get();
           if (queryRes.empty) return new ValidationError('User id not found');
+          return (queryRes.docs.map(user => user.data()) as User[])[0];
+      } catch (error) {
+        throw new ApolloError(error);
+      }
+    },
+    async item (_: null, args: Item) {
+      try {
+        const queryRes = await admin
+          .firestore()
+          .collection('users')
+          //.where('email', '==', args.email)
+          .get();
+          if (queryRes.empty) return new ValidationError('Item id not found');
           return (queryRes.docs.map(user => user.data()) as User[])[0];
       } catch (error) {
         throw new ApolloError(error);
