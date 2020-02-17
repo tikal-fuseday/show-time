@@ -1,5 +1,4 @@
 import React from 'react';
-// import {Text} from 'react-native';
 import {List, ListItem} from '@ui-kitten/components';
 import styled from 'styled-components/native';
 

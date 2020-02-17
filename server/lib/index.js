@@ -19,15 +19,15 @@ admin.initializeApp({
 const apollo_server_1 = require("apollo-server");
 const typeDefs = apollo_server_1.gql `
   type User {
-    id: String!
-    fname: String!
-    lname: String!
+    id: String
+    fname: String
+    lname: String
     is_admin: Boolean
-    email: String!   
+    email: String   
   }
 
   type Query {
-    user(id: String!): User
+    user(email: String!): User
   }
 `;
 // interface User {
@@ -78,12 +78,14 @@ const resolvers = {
         // },
         async user(_, args) {
             try {
-                const userDoc = await admin
+                const queryRes = await admin
                     .firestore()
-                    .doc(`users/${args.id}`)
+                    .collection('users')
+                    .where('email', '==', args.email)
                     .get();
-                const user = userDoc.data();
-                return user || new apollo_server_1.ValidationError('User id not found');
+                if (queryRes.empty)
+                    return new apollo_server_1.ValidationError('User id not found');
+                return queryRes.docs.map(user => user.data())[0];
             }
             catch (error) {
                 throw new apollo_server_1.ApolloError(error);
