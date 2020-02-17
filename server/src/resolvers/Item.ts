@@ -2,7 +2,7 @@ import { AdminConnection } from '../config';
 import { ApolloServer, ApolloError, ValidationError } from 'apollo-server';
 import { Item } from '../resources/Item';
 
-export const itemResolver = async (_: null, args: {}) => {
+export const itemResolver = async (_: null, args: Item) => {
     try {
       const queryRes = await AdminConnection
         .firestore()

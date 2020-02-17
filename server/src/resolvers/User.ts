@@ -2,7 +2,7 @@ import { AdminConnection } from '../config';
 import { ApolloServer, ApolloError, ValidationError } from 'apollo-server';
 import { User } from '../resources/User';
 
-export const userResolver = async (_: null, args: { email: string }) => {
+export const userResolver = async (_: null, args: User) => {
     try {
       const queryRes = await AdminConnection
         .firestore()
