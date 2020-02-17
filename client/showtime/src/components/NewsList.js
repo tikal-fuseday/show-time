@@ -1,8 +1,9 @@
 import React from 'react';
-import { List, ListItem, Button, Icon, Card } from '@ui-kitten/components';
+import {List, ListItem, Button, Card, Text} from '@ui-kitten/components';
 import styled from 'styled-components/native';
-import { Text } from 'react-native';
-
+import {gql} from 'apollo-boost';
+import {useQuery} from '@apollo/react-hooks';
+import {View} from 'react-native';
 const StyledImage = styled.Image`
   width: 100%;
   height: 100%;
@@ -18,7 +19,6 @@ const Thumbnail = styled.View`
   flex-grow: 0;
 `;
 const ItemInfo = styled.View`
-  flex-direction: row;
   padding: 10px;
   flex-grow: 1;
 `;
@@ -39,30 +39,56 @@ const Metadata = styled.View`
   align-items: stretch;
 `;
 
-const StarIcon = style => {
-  return <Icon name="star"/>;
-};
+const getAllItems = gql`
+  {
+    item {
+      thumbnail
+      id
+      title
+      description
+      likes {
+        email
+        id
+        is_admin
+      }
+      created_at
+    }
+  }
+`;
 
-const NewsListItem = ({ item }) => {
+const NewsListItem = ({item}) => {
   return (
     <Card>
       <StyledListItem>
         <Content>
           <Thumbnail>
-            <StyledImage source={{ uri: item.thumbnail }}/>
+            <StyledImage source={{uri: item.thumbnail}} />
           </Thumbnail>
           <ItemInfo>
-            <Text style={{ flex: 1, flexWrap: 'wrap' }}>{item.description}</Text>
+            <View style={{flex: 1, border: '4px solid red'}}>
+              <Text
+                allowFontScaling={false}
+                flexWrap="wrap"
+                category="h6"
+                ellipsizeMode="tail"
+                numberOfLines={1}
+                style={{flex: 1}}>
+                {item.title}
+              </Text>
+            </View>
+            <Text category="s1" style={{flex: 1, flexWrap: 'wrap'}}>
+              {item.description}
+            </Text>
           </ItemInfo>
         </Content>
         <Footer>
           <Action>
             <LikeButton appearance="ghost" status="danger">
-              Like
+              Like({item.likes.length})
             </LikeButton>
           </Action>
           <Metadata>
-            <Text>April 16 | by: user123 | views: 200</Text>
+            <Text>{item.created_at} | by: user123 | views: 200</Text>
           </Metadata>
         </Footer>
       </StyledListItem>
@@ -81,37 +107,15 @@ const NewsListStyle = styled.View`
 `;
 
 const LikeButton = styled(Button)`
-  width: 80px;
+  width: 110px;
   margin: 8px;
 `;
 
-const dummyItems = [
-  {
-    id: 1,
-    create_at: Date.now(),
-    create_by: '14324234234',
-    title: 'Udi',
-    description: 'lorem iplsum lorem ipsum... lore loeoeronm pidsum',
-    type: 'COURSE',
-    likes: [],
-    thumbnail: 'https://api.adorable.io/avatars/285/abott@adorable.png',
-  },
-  {
-    id: 1,
-    create_at: Date.now(),
-    create_by: '14324234234',
-    title: 'Udi',
-    description: 'dfgg33rere loeoeronm pidsum, lajsdaklsdja ,asdlkjasd',
-    type: 'MEETUP',
-    likes: [],
-    thumbnail: 'https://api.adorable.io/avatars/285/',
-  },
-];
-
 const NewsList = props => {
+  const {data, loading, error} = useQuery(getAllItems);
   return (
     <NewsListStyle>
-      <List data={dummyItems} renderItem={NewsListItem}/>
+      {!loading && <List data={data.item} renderItem={NewsListItem} />}
     </NewsListStyle>
   );
 };
