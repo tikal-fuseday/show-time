@@ -1,7 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
-import { List, ListItem, Text } from '@ui-kitten/components';
+import {View} from 'react-native';
+import {List, ListItem, Text} from '@ui-kitten/components';
 import styled from 'styled-components/native';
+import {gql} from 'apollo-boost';
+import {useQuery} from '@apollo/react-hooks';
 
 const Username = styled.Text`
   font-weight: bold;
@@ -18,20 +20,33 @@ const StyledImage = styled.Image`
   margin-right: 20;
 `;
 
-const scoreListItem = ({ item, index }) => {
+const getUsers = gql`
+  {
+    user(email: "alexs@tikalk.com") {
+      id
+      lname
+      fname
+      score
+    }
+  }
+`;
+
+const scoreListItem = ({item}, index) => {
   return (
-    <ListItem style={{ flexDirection: 'row', justifyContent: 'space-between' }} title={item.name}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={{ marginRight: 10 }} category='h5'>{`${index + 1})`}</Text>
+    <ListItem
+      style={{flexDirection: 'row', justifyContent: 'space-between'}}
+      title={item.name}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <Text style={{marginRight: 10}} category="h5">{`${index + 1})`}</Text>
         <StyledImage
-          style={{ width: 54, height: 54, marginRight: 20, borderRadius: 27 }}
+          style={{width: 54, height: 54, marginRight: 20, borderRadius: 27}}
           source={{
             uri: item.avatar,
           }}
         />
-        <Text category='h4'>{item.name}</Text>
+        <Text category="h4">{item.name}</Text>
       </View>
-      <Text category='h3'>{item.score}</Text>
+      <Text category="h3">{item.score}</Text>
     </ListItem>
   );
 };
@@ -62,9 +77,13 @@ const dummyData = [
 ];
 
 const ScoreList = props => {
+  const {loading, data, error} = useQuery(getUsers);
+  console.log('data:', data);
+  let date = new Date();
+  console.log(date);
   return (
     <ScoreListStyle>
-      <List data={dummyData} renderItem={scoreListItem}/>
+      <List data={dummyData} renderItem={scoreListItem} />
     </ScoreListStyle>
   );
 };
