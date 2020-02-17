@@ -1,5 +1,6 @@
 import React from 'react';
-import {List, ListItem} from '@ui-kitten/components';
+import { View } from 'react-native';
+import { List, ListItem, Text } from '@ui-kitten/components';
 import styled from 'styled-components/native';
 
 const Username = styled.Text`
@@ -17,17 +18,20 @@ const StyledImage = styled.Image`
   margin-right: 20;
 `;
 
-const scoreListItem = ({item}) => {
+const scoreListItem = ({ item, index }) => {
   return (
-    <ListItem title={item.name}>
-      <StyledImage
-        style={{width: 66, height: 58, marginRight: 20}}
-        source={{
-          uri: item.avatar,
-        }}
-      />
-      <Username>{item.name}</Username>
-      <Score>({item.score})</Score>
+    <ListItem style={{ flexDirection: 'row', justifyContent: 'space-between' }} title={item.name}>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={{ marginRight: 10 }} category='h5'>{`${index + 1})`}</Text>
+        <StyledImage
+          style={{ width: 54, height: 54, marginRight: 20, borderRadius: 27 }}
+          source={{
+            uri: item.avatar,
+          }}
+        />
+        <Text category='h4'>{item.name}</Text>
+      </View>
+      <Text category='h3'>{item.score}</Text>
     </ListItem>
   );
 };
@@ -60,7 +64,7 @@ const dummyData = [
 const ScoreList = props => {
   return (
     <ScoreListStyle>
-      <List data={dummyData} renderItem={scoreListItem} />
+      <List data={dummyData} renderItem={scoreListItem}/>
     </ScoreListStyle>
   );
 };
