@@ -14,7 +14,8 @@
     "@ui-kitten/components": "^4.4.0",
     "react": "16.9.0",
     "react-native": "0.61.5",
-    "react-native-svg": "^11.0.1"
+    "react-native-svg": "^11.0.1",
+    "styled-components": "^5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
