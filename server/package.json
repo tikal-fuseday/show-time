@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "serve": "npm run build && node lib/index.js",
-    "start": "node lib/index.js"
+    "serve": "npm run build && node lib/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["win", "win", "win"],
+  "author": "Tikal winning team",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.10.1",
