@@ -7,7 +7,8 @@ export const userResolver = async (_: null, args: { email: string }) => {
       const queryRes = await AdminConnection
         .firestore()
         .collection('users')
-        .where('email', '==', args.email)
+        // .where('email', '==', args.email)
+        .orderBy('score', 'desc').limit(2)
         .get();
         if (queryRes.empty) return new ValidationError('User id not found');
         return (queryRes.docs.map(user => ({

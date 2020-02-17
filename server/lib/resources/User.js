@@ -1,15 +1,6 @@
-import { gql } from 'apollo-server';
-
-export interface User {
-    id: string;
-    fname: string;
-    lname: string;
-    score: number;
-    is_admin: boolean;
-    email: string;
-  }
-  
-export const userDefs = `
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userDefs = `
     type User {
         id: String
         fname: String
@@ -23,3 +14,4 @@ export const userDefs = `
         user(email: String!): [User]
     }
 `;
+//# sourceMappingURL=User.js.map
