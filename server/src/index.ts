@@ -47,7 +47,7 @@ const typeDefs = gql`
     description: String;
     type: ItemType;
     likes: [User];
-    created_at: Date;
+    created_at: string;
     created_by: User;
     thumbnail: String; 
   }
