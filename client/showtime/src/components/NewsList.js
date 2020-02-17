@@ -1,11 +1,12 @@
 import React from 'react';
-import {List, ListItem, Button, Icon, Card} from '@ui-kitten/components';
+import { List, ListItem, Button, Icon, Card } from '@ui-kitten/components';
 import styled from 'styled-components/native';
-import {Text} from 'react-native';
+import { Text } from 'react-native';
 
 const StyledImage = styled.Image`
   width: 100%;
   height: 100%;
+  border-radius: 50;
 `;
 
 const Content = styled.View`
@@ -39,19 +40,19 @@ const Metadata = styled.View`
 `;
 
 const StarIcon = style => {
-  return <Icon name="star" />;
+  return <Icon name="star"/>;
 };
 
-const NewsListItem = ({item}) => {
+const NewsListItem = ({ item }) => {
   return (
     <Card>
       <StyledListItem>
         <Content>
           <Thumbnail>
-            <StyledImage source={{uri: item.thumbnail}} />
+            <StyledImage source={{ uri: item.thumbnail }}/>
           </Thumbnail>
           <ItemInfo>
-            <Text style={{flex: 1, flexWrap: 'wrap'}}>{item.description}</Text>
+            <Text style={{ flex: 1, flexWrap: 'wrap' }}>{item.description}</Text>
           </ItemInfo>
         </Content>
         <Footer>
@@ -110,7 +111,7 @@ const dummyItems = [
 const NewsList = props => {
   return (
     <NewsListStyle>
-      <List data={dummyItems} renderItem={NewsListItem} />
+      <List data={dummyItems} renderItem={NewsListItem}/>
     </NewsListStyle>
   );
 };

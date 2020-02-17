@@ -6,7 +6,7 @@ import NewsList from '../components/NewsList';
 const NewsScreen = () => (
   <Layout style={{flex: 1}}>
     <SafeAreaView style={{flex: 1}}>
-      <Text category="h1">News screen</Text>
+      <Text style={{alignSelf:'center'}}category="h1">News</Text>
       <NewsList />
     </SafeAreaView>
   </Layout>
