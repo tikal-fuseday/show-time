@@ -7,6 +7,7 @@ import {
   StatusBar,
 } from 'react-native';
 import {gql} from 'apollo-boost';
+import {ApolloProvider} from '@apollo/react-hooks';
 
 import {ApplicationProvider, Layout, Text} from '@ui-kitten/components';
 import {mapping, light as lightTheme} from '@eva-design/eva';
@@ -24,26 +25,17 @@ import {createStore} from './store';
 const store = createStore();
 import apolloClient from './services/apolloClient';
 
-apolloClient
-  .query({
-    query: gql`
-      {
-        user(email: "hagair@tikalk.com") {
-          id
-          fname
-        }
-      }
-    `,
-  })
-  .then(result => console.log('result:', result));
+console.disableYellowBox = true;
 
 const App: () => React$Node = () => {
   return (
-    <StoreProvider store={store}>
-      <ApplicationProvider mapping={mapping} theme={lightTheme}>
-        <Router />
-      </ApplicationProvider>
-    </StoreProvider>
+    <ApolloProvider client={apolloClient}>
+      <StoreProvider store={store}>
+        <ApplicationProvider mapping={mapping} theme={lightTheme}>
+          <Router />
+        </ApplicationProvider>
+      </StoreProvider>
+    </ApolloProvider>
   );
 };
 
