@@ -50,7 +50,7 @@ const ScoreList = props => {
   const {loading, data, error} = useQuery(getUsers);
   return (
     <ScoreListStyle>
-      <List data={data.user} renderItem={scoreListItem} />
+      {!loading && <List data={data.user} renderItem={scoreListItem} />}
     </ScoreListStyle>
   );
 };
