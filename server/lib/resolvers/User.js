@@ -2,6 +2,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const config_1 = require("../config");
 const apollo_server_1 = require("apollo-server");
+exports.userItemsResolver = async (user) => {
+    return [user.id];
+    // try {
+    //   const queryRes = await AdminConnection
+    //     .firestore()
+    //     .collection('items')
+    //     .where('created_by', '==', user.id)
+    //     .limit(1000)
+    //     .get();
+    //     if (queryRes.empty) return new ValidationError('User id not found');
+    //     return (queryRes.docs.map(item => item.data()));
+    // } catch (error) {
+    //   throw new ApolloError(error);
+    // }
+};
 exports.userResolver = async (_, args) => {
     const { limit = 1000, id, filter = [], email, } = args;
     try {

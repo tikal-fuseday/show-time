@@ -6,8 +6,10 @@ exports.userDefs = `
         fname: String
         lname: String
         score: Int
+        avatar: String
         is_admin: Boolean
-        email: String   
+        email: String
+        items: [String]  
     }
 
     type Query {
