@@ -2,22 +2,6 @@ import { AdminConnection } from '../config';
 import { ApolloError, ValidationError } from 'apollo-server';
 import { User } from '../resources/User';
 
-export const userItemsResolver = async(user) => {
-  return [user.id];
-  // try {
-  //   const queryRes = await AdminConnection
-  //     .firestore()
-  //     .collection('items')
-  //     .where('created_by', '==', user.id)
-  //     .limit(1000)
-  //     .get();
-  //     if (queryRes.empty) return new ValidationError('User id not found');
-  //     return (queryRes.docs.map(item => item.data()));
-  // } catch (error) {
-  //   throw new ApolloError(error);
-  // }
-}
-
 interface userArgs {
   limit: number,
   id: string,

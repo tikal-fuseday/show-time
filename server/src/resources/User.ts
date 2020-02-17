@@ -18,7 +18,7 @@ export const userDefs = `
         avatar: String
         is_admin: Boolean
         email: String
-        items: [String]  
+        items: [Item]  
     }
 
     type Query {

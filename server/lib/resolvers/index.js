@@ -5,10 +5,10 @@ const Item_1 = require("./Item");
 exports.default = {
     Query: {
         user: User_1.userResolver,
+        item: Item_1.itemResolver,
     },
     User: {
-        items: User_1.userItemsResolver
-        item: Item_1.itemResolver,
-    }
+        items: Item_1.userItemsResolver
+    },
 };
 //# sourceMappingURL=index.js.map

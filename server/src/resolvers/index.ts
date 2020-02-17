@@ -1,15 +1,17 @@
 import {
- userResolver as user,
- userItemsResolver as items
+ userResolver as user
 } from './User';
-import { itemResolver as item} from './Item';
+import { 
+ itemResolver as item,
+ userItemsResolver as items
+} from './Item';
 
 export default {
   Query: {
     user,
+    item,
   },
   User: {
    items
   },
-  item,
 };
