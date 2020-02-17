@@ -19,7 +19,7 @@ admin.initializeApp({
 const apollo_server_1 = require("apollo-server");
 const typeDefs = apollo_server_1.gql `
   type User {
-    id: ID!
+    id: String!
     fname: String!
     lname: String!
     is_admin: Boolean
@@ -27,7 +27,7 @@ const typeDefs = apollo_server_1.gql `
   }
 
   type Query {
-    user(id: ID!): User
+    user(id: String!): User
   }
 `;
 // interface User {

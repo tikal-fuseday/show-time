@@ -18,7 +18,7 @@ interface User {
 
 const typeDefs = gql`
   type User {
-    id: ID!
+    id: String!
     fname: String!
     lname: String!
     is_admin: Boolean
@@ -26,7 +26,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    user(id: ID!): User
+    user(id: String!): User
   }
 `;
 
