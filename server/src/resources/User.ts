@@ -20,6 +20,6 @@ export const userDefs = `
     }
 
     type Query {
-        user(email: String!): [User]
+        user(id: String): [User]
     }
 `;

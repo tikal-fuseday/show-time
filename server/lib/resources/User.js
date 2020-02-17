@@ -11,7 +11,7 @@ exports.userDefs = `
     }
 
     type Query {
-        user(email: String!): [User]
+        user(id: String): [User]
     }
 `;
 //# sourceMappingURL=User.js.map
