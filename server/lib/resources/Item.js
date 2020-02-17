@@ -19,7 +19,11 @@ exports.itemDefs = `
     }
 
     extend type Query {
-        item: [Item]
+        item(
+            id: String
+            title: String
+            created_by: String
+        ): [Item]
     }
 `;
 //# sourceMappingURL=Item.js.map

@@ -21,7 +21,7 @@ export const userItemsResolver = async(user) => {
   }
 }
 
-export const itemResolver = async (_: null, args: {}) => {
+export const itemResolver = async (_: null, args: Item) => {
     try {
       const queryRes = await AdminConnection
         .firestore()
