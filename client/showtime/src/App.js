@@ -6,6 +6,8 @@ import {
   View,
   StatusBar,
 } from 'react-native';
+import {gql} from 'apollo-boost';
+
 import {ApplicationProvider, Layout, Text} from '@ui-kitten/components';
 import {mapping, light as lightTheme} from '@eva-design/eva';
 import {
@@ -15,18 +17,30 @@ import {
   //   DebugInstructions,
   //   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { Provider as StoreProvider } from 'react-redux';
-import { Router } from './routes';
+import {Provider as StoreProvider} from 'react-redux';
+import {Router} from './routes';
 import {createStore} from './store';
 
-
 const store = createStore();
+import apolloClient from './services/apolloClient';
+
+apolloClient
+  .query({
+    query: gql`
+      {
+        rates(currency: "USD") {
+          currency
+        }
+      }
+    `,
+  })
+  .then(result => console.log('result:', result));
 
 const App: () => React$Node = () => {
   return (
     <StoreProvider store={store}>
       <ApplicationProvider mapping={mapping} theme={lightTheme}>
-        <Router/>
+        <Router />
       </ApplicationProvider>
     </StoreProvider>
   );
